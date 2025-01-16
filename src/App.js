@@ -8,10 +8,14 @@ function App() {
 
   const [movies, setMovies] = useState([]);
 
+  function deleteMovie(movie) {
+      setMovies(movies.filter((m) => m !== movie));
+  }
+
   return (
       <div>
           <h1>My favourite movies to watch</h1>
-          <MoviesList movies={movies}/>
+          <MoviesList movies={movies} onMovieDelete={deleteMovie}/>
           <MovieForm onMovieSubmit={(movie) => setMovies([...movies, movie])} buttonLabel='Add movie'/>
       </div>
   );
