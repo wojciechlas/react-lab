@@ -1,5 +1,6 @@
 import './App.css';
 import {useState} from 'react';
+import 'milligram'
 
 function App() {
   const [title, setTitle] = useState('Wall-E');
@@ -36,7 +37,7 @@ function App() {
           {
             title.length > 0 && <h3>{message}</h3>
           }
-          <input type="text" value={title} onChange={handleChange}/>
+          <input type='text' value={title} onChange={handleChange}/>
           <button onClick={ () => alert(title) }>Pokaż tytuł filmu</button>
       </div>
   );
