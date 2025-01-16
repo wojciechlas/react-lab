@@ -3,10 +3,16 @@ import {useState} from 'react';
 import 'milligram'
 
 function App() {
-  const [title, setTitle] = useState('Wall-E');
+  const [title, setTitle] = useState('');
+  const [year, setYear] = useState('');
+  const [movies, setMovies] = useState([]);
 
-  function handleChange(event) {
+  function handleChangeTitle(event) {
       setTitle(event.target.value);
+  }
+
+  function handleChangeYear(event) {
+    setYear(event.target.value);
   }
 
   let message;
@@ -19,26 +25,40 @@ function App() {
     message = 'Tytuł jest za długi, nikt tego nei zapamięta.';
   }
 
-  const movies = [
-    {title: "Wall-E"},
-    {title: "Pulp Fiction"},
-    {title: "Matrix"},
-    {title: "1670"},
-];
+  function addMovie(event) {
+    if (title.length < 5) {
+      alert('Tytuł jest za krótki.');
+      return;
+    }
+    if (year.length !== 4) {
+      alert('Rok musi mieć 4 cyfry.');
+      return;
+    }
+
+    const newMovie = {
+      title: title,
+      year: year
+    }
+    setMovies([...movies, newMovie]);
+    return;
+  }
 
   return (
       <div>
           <h1>My favourite movies to watch</h1>
           <h2>Titles</h2>
           <ul>
-            {movies.map((movie) => <li key={movie.title}>{movie.title}</li>)}
+            {movies.map((movie) => <li key={movie.title}>{movie.title} ({movie.year})</li>)}
           </ul>
-          <h2>My favourite movie for today is {title}</h2>
+          <h2>Add movie</h2>
+          <h3>Title</h3>
+          <input type='text' value={title} onChange={handleChangeTitle}/>
           {
-            title.length > 0 && <h3>{message}</h3>
+            title.length > 0 && <p>{message}</p>
           }
-          <input type='text' value={title} onChange={handleChange}/>
-          <button onClick={ () => alert(title) }>Pokaż tytuł filmu</button>
+          <h3>Year</h3>
+          <input type='text' value={year} onChange={handleChangeYear}/>
+          <button onClick={addMovie}>Add movie</button>
       </div>
   );
 }
